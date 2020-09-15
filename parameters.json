@@ -1,0 +1,46 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "networkSecurityGroupRules": {
+            "value": [
+                {
+                    "name": "RDP",
+                    "properties": {
+                        "priority": 300,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "3389"
+                    }
+                }
+            ]
+        },
+        "virtualNetworkId": {
+            "value": "/subscriptions/5e034370-f0d9-4d4f-b10e-007b8c4ebba5/resourceGroups/DevOpsTest/providers/Microsoft.Network/virtualNetworks/cnm-vnet"
+        },
+        "publicIpAddressType": {
+            "value": "Dynamic"
+        },
+        "osDiskType": {
+            "value": "Standard_LRS"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_B2s"
+        },
+        "adminPassword": {
+            "reference": {
+                "keyVault": {
+                "id": "/subscriptions/5e034370-f0d9-4d4f-b10e-007b8c4ebba5/resourceGroups/DevOpsTest/providers/Microsoft.KeyVault/vaults/cnm-key"
+                },
+                "secretName": "VM-Password"
+            }
+        },
+        "patchMode": {
+            "value": "AutomaticByOS"
+        }
+    }
+}
